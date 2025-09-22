@@ -1,0 +1,89 @@
+Cashback Platform Backend Documentation
+This document provides a comprehensive overview of the file structure, core components, and API endpoints for the Cashback Platform backend.
+
+1. Project Overview & File Structure
+The project follows a modular structure, organizing files by their function (e.g., controllers, models, routes). This separation of concerns makes the codebase easier to maintain and scale.
+
+/.env: Stores environment variables (database URIs, API keys, JWT secrets). Not committed to version control.
+
+/.env.example: A template for the .env file.
+
+/package.json: Defines project metadata, scripts, and dependencies.
+
+/src: The main source code directory.
+
+/config: Configuration files for services like the database (database.js), Razorpay (razorpay.js), and API documentation (swagger.js).
+
+/controllers: Contains the business logic for each API route. Controllers handle requests, interact with models, and send responses.
+
+/middleware: Express middleware functions for tasks like authentication (auth.js), input validation (validation.js), error handling (errorHandler.js), and securing callbacks (authCallbacks.js).
+
+/models: Mongoose schemas that define the structure of the data in the MongoDB database. Each file corresponds to a collection.
+
+/routes: Express router files that define the API endpoints and link them to the appropriate controller functions.
+
+/utils: Utility and helper functions used across the application (e.g., error handling classes, email service, logging).
+
+server.js: The main entry point of the application. It initializes the Express server, connects to the database, sets up middleware, and mounts all the API routes.
+
+2. File Explanations
+/src/config/
+database.js: Handles the connection to the MongoDB database using Mongoose.
+
+razorpay.js: Initializes and configures the Razorpay client instance for processing payouts.
+
+swagger.js: Configures swagger-jsdoc to generate OpenAPI (Swagger) documentation for the API, making it easy to visualize and test endpoints.
+
+/src/controllers/
+authController.js: Manages all authentication logic, including user registration, login, logout, password resets, and email verification.
+
+userController.js: Handles user-specific actions for authenticated users, like fetching their own profile (getMe) and updating their details (updateMe, changePassword).
+
+retailerController.js: Implements CRUD (Create, Read, Update, Delete) operations for retailers. Primarily used by administrators.
+
+offerController.js: Implements CRUD operations for offers and coupons associated with retailers. Primarily used by administrators.
+
+clickController.js: Contains logic for tracking user clicks on affiliate links. This is a critical part of the cashback attribution flow.
+
+transactionController.js: Handles fetching transaction history for users. Transaction creation is handled by the callbackController.
+
+withdrawalController.js: Manages user withdrawal requests and their lifecycle.
+
+adminController.js: Contains logic for all administrative functions, such as managing users, processing withdrawals, and viewing platform-wide data.
+
+callbackController.js: Manages incoming webhooks/postbacks from external services like affiliate networks (to log transactions) and Razorpay (to update payout status).
+
+handlerFactory.js: A generic factory that creates reusable controller functions for common CRUD operations (getAll, getOne, createOne, updateOne, deleteOne), reducing code duplication.
+
+/src/middleware/
+auth.js: Provides the protect middleware to secure routes by verifying JWTs, and the restrictTo middleware to limit access based on user roles (e.g., 'admin').
+
+authCallbacks.js: Contains middleware specifically for securing incoming webhook endpoints, using an API key for affiliate networks and signature verification for Razorpay.
+
+errorHandler.js: A global error handling middleware that catches all errors from anywhere in the application and sends a formatted, user-friendly response.
+
+validation.js: Uses the Joi library to define and enforce validation schemas for incoming request bodies, ensuring data integrity.
+
+/src/models/
+User.js: Defines the schema for users, including personal details, authentication fields, cashback balances, and methods for password handling.
+
+Retailer.js: Defines the schema for partner stores, including their name, affiliate URL, cashback rates, and other details.
+
+Offer.js: Defines the schema for specific deals or coupons, linked to a retailer.
+
+Click.js: Defines the schema for tracking each click on an affiliate link, storing user and retailer information for later attribution.
+
+Transaction.js: Defines the schema for cashback transactions, created when an affiliate network confirms a sale via postback.
+
+Withdrawal.js: Defines the schema for user withdrawal requests, tracking the amount, payment method, and status.
+
+/src/utils/
+apiFeatures.js: A class that encapsulates filtering, sorting, paginating, and field limiting logic for Mongoose queries, making API responses more flexible.
+
+appError.js: A custom error class that extends the native Error class, used for creating operational errors with status codes.
+
+catchAsync.js: A wrapper function that catches errors in async Express route handlers and passes them to the global error handler, avoiding the need for repetitive try/catch blocks.
+
+email.js: A class for sending transactional emails (e.g., welcome, password reset) using nodemailer.
+
+logger.js: Configures the winston logger for structured, level-based logging to files and the console.

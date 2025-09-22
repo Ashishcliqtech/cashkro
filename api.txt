@@ -1,0 +1,389 @@
+Cashback Platform - API Collection for Frontend Developers
+This document provides a detailed guide for frontend developers to integrate with the Cashback Platform backend API.
+
+Base URL: http://localhost:5000/api (for development)
+
+Authentication
+Most endpoints require a JSON Web Token (JWT) for authentication. After a successful login, the API will return a token. This token should be stored securely on the client (e.g., in an HttpOnly cookie or secure storage) and sent with subsequent requests in the Authorization header.
+
+Header Format: Authorization: Bearer <YOUR_JWT_TOKEN>
+
+1. Auth Endpoints
+Base Path: /auth
+
+Register a New User
+Endpoint: POST /register
+
+Description: Creates a new user account.
+
+Auth: Public
+
+Request Body:
+
+{
+  "firstName": "Jane",
+  "lastName": "Doe",
+  "email": "jane.doe@example.com",
+  "password": "SecurePassword123!"
+}
+
+Success Response (201 Created):
+
+{
+  "status": "success",
+  "message": "User registered successfully. Please check your email to verify your account.",
+  "token": "...",
+  "data": {
+    "user": {
+      "role": "user",
+      "isEmailVerified": false,
+      "_id": "60d5f1b4e6a3c1a4e8f3b8c5",
+      "firstName": "Jane",
+      "lastName": "Doe",
+      "email": "jane.doe@example.com"
+    }
+  }
+}
+
+Error Responses:
+
+400 Bad Request: If validation fails (e.g., weak password).
+
+409 Conflict: If the email address is already in use.
+
+Login User
+Endpoint: POST /login
+
+Description: Authenticates a user and provides a JWT.
+
+Auth: Public
+
+Request Body:
+
+{
+  "email": "jane.doe@example.com",
+  "password": "SecurePassword123!"
+}
+
+Success Response (200 OK):
+
+{
+  "status": "success",
+  "message": "Login successful",
+  "token": "...",
+  "data": {
+    "user": {
+      "_id": "60d5f1b4e6a3c1a4e8f3b8c5",
+      "firstName": "Jane",
+      "email": "jane.doe@example.com"
+    }
+  }
+}
+
+Error Response (401 Unauthorized):
+
+{
+  "status": "fail",
+  "message": "Incorrect email or password"
+}
+
+Forgot Password
+Endpoint: POST /forgot-password
+
+Description: Sends a password reset link to the user's email.
+
+Auth: Public
+
+Request Body:
+
+{
+  "email": "jane.doe@example.com"
+}
+
+Success Response (200 OK):
+
+{
+  "status": "success",
+  "message": "Password reset token sent to email!"
+}
+
+Reset Password
+Endpoint: PATCH /reset-password/:token
+
+Description: Sets a new password using the token from the reset email.
+
+Auth: Public
+
+Request Body:
+
+{
+  "password": "NewSecurePassword456!",
+  "confirmPassword": "NewSecurePassword456!"
+}
+
+Success Response (200 OK):
+
+{
+  "status": "success",
+  "message": "Password reset successful",
+  "token": "...",
+  "data": { ... }
+}
+
+Error Response (400 Bad Request):
+
+{
+    "status": "fail",
+    "message": "Token is invalid or has expired"
+}
+
+2. User Endpoints
+Base Path: /users
+
+Get Current User Profile
+Endpoint: GET /me
+
+Description: Retrieves the profile of the currently authenticated user.
+
+Auth: Required (Bearer Token)
+
+Success Response (200 OK):
+
+{
+  "status": "success",
+  "data": {
+    "user": {
+      "_id": "...",
+      "firstName": "Jane",
+      "lastName": "Doe",
+      "email": "jane.doe@example.com",
+      "availableCashback": 15.75,
+      "pendingCashback": 25.50
+    }
+  }
+}
+
+Update User Profile
+Endpoint: PATCH /updateMe
+
+Description: Updates the name or phone number of the authenticated user.
+
+Auth: Required (Bearer Token)
+
+Request Body:
+
+{
+  "firstName": "Janet",
+  "phone": "1234567890"
+}
+
+Success Response (200 OK):
+
+{
+  "status": "success",
+  "data": {
+    "user": {
+      "firstName": "Janet",
+      "phone": "1234567890"
+    }
+  }
+}
+
+Change Password
+Endpoint: PATCH /changePassword
+
+Description: Updates the password for the authenticated user.
+
+Auth: Required (Bearer Token)
+
+Request Body:
+
+{
+    "currentPassword": "SecurePassword123!",
+    "newPassword": "NewSecurePassword456!",
+    "confirmPassword": "NewSecurePassword456!"
+}
+
+Success Response (200 OK):
+
+{
+  "status": "success",
+  "message": "Password changed successfully."
+}
+
+Error Response (401 Unauthorized): If currentPassword is incorrect.
+
+3. Retailers & Offers
+Base Paths: /retailers, /offers
+
+Get All Retailers
+Endpoint: GET /retailers
+
+Description: Fetches a paginated list of all active retailers.
+
+Auth: Public
+
+Query Parameters:
+
+limit (number): Number of results per page.
+
+page (number): The page number to retrieve.
+
+sort (string): Field to sort by (e.g., -rating, name).
+
+category (string): Filter by category (e.g., Electronics).
+
+Success Response (200 OK):
+
+{
+  "status": "success",
+  "results": 15,
+  "data": {
+    "data": [
+      {
+        "_id": "...",
+        "name": "Example Retailer",
+        "logo": "...",
+        "cashbackDisplay": "Up to 10%"
+      }
+    ]
+  }
+}
+
+Get All Offers
+Endpoint: GET /offers
+
+Description: Fetches a paginated list of all active offers.
+
+Auth: Public
+
+Query Parameters: Can be filtered by retailer ID (?retailer=...).
+
+Success Response (200 OK):
+
+{
+    "status": "success",
+    "results": 25,
+    "data": {
+        "data": [
+            {
+                "_id": "...",
+                "title": "50% Off on All Electronics",
+                "retailer": "...",
+                "couponCode": "SALE50"
+            }
+        ]
+    }
+}
+
+4. Click Tracking
+Base Path: /clicks
+
+Track an Affiliate Click
+Endpoint: POST /track
+
+Description: Logs a user's click and provides the affiliate URL for redirection. The frontend should open this URL in a new tab.
+
+Auth: Public (but associates click with user if logged in)
+
+Request Body:
+
+{
+    "retailerId": "60d5f1b4e6a3c1a4e8f3b8d1"
+}
+
+Success Response (200 OK):
+
+{
+    "status": "success",
+    "redirectUrl": "[https://affiliate.example.com/track?a=...&clickid=](https://affiliate.example.com/track?a=...&clickid=)..."
+}
+
+5. Transactions & Withdrawals
+Base Paths: /transactions, /withdrawals
+
+Get My Transactions
+Endpoint: GET /transactions
+
+Description: Retrieves the cashback transaction history for the authenticated user.
+
+Auth: Required (Bearer Token)
+
+Query Parameters: Filter by status (?status=pending, ?status=confirmed).
+
+Success Response (200 OK):
+
+{
+  "status": "success",
+  "results": 5,
+  "data": {
+    "data": [
+      {
+        "retailer": { "name": "Example Store" },
+        "orderId": "ORD123",
+        "amount": 100,
+        "cashbackAmount": 10,
+        "status": "pending",
+        "orderDate": "..."
+      }
+    ]
+  }
+}
+
+Request a Withdrawal
+Endpoint: POST /withdrawals
+
+Description: Creates a request to withdraw available cashback.
+
+Auth: Required (Bearer Token)
+
+Request Body:
+
+{
+  "amount": 25.50,
+  "paymentMethod": "bank_transfer",
+  "paymentDetails": {
+    "accountName": "Jane Doe",
+    "accountNumber": "123456789",
+    "routingNumber": "987654321",
+    "bankName": "Example Bank"
+  }
+}
+
+Success Response (201 Created):
+
+{
+  "status": "success",
+  "data": {
+    "data": {
+      "status": "pending",
+      "amount": 25.50,
+      ...
+    }
+  }
+}
+
+Error Response (400 Bad Request):
+
+{
+    "status": "fail",
+    "message": "Withdrawal amount exceeds available balance."
+}
+
+6. Admin Endpoints
+Base Path: /admin
+Note: All endpoints in this section require Admin role authentication.
+
+GET /users: Get a list of all users.
+
+PATCH /users/:id/status: Activate or deactivate a user.
+
+POST /retailers: Create a new retailer.
+
+PATCH /retailers/:id: Update a retailer.
+
+DELETE /retailers/:id: Delete a retailer.
+
+GET /withdrawals?status=pending: Get all pending withdrawal requests.
+
+POST /withdrawals/:id/process: Approve a withdrawal and initiate the payout.
