@@ -65,7 +65,6 @@ const clickSchema = new mongoose.Schema({
 });
 
 // Indexes
-clickSchema.index({ clickId: 1 });
 clickSchema.index({ user: 1 });
 clickSchema.index({ retailer: 1 });
 clickSchema.index({ offer: 1 });

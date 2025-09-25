@@ -1,167 +1,100 @@
 const express = require('express');
-const mongoose = require('mongoose');
-const cors = require('cors');
-const helmet = require('helmet');
-const compression = require('compression');
+const morgan = require('morgan');
 const rateLimit = require('express-rate-limit');
+const helmet = require('helmet');
 const mongoSanitize = require('express-mongo-sanitize');
+const xss = require('xss-clean');
 const hpp = require('hpp');
+const cors = require('cors');
 const cookieParser = require('cookie-parser');
-require('dotenv').config();
-
-// Import utilities
-const logger = require('./utils/logger');
 const AppError = require('./utils/appError');
 const globalErrorHandler = require('./middleware/errorHandler');
+const config = require('./config/config');
+const logger = require('./utils/logger');
 
-// Import routes
-const authRoutes = require('./routes/auth');
-const userRoutes = require('./routes/user');
-const retailerRoutes = require('./routes/retailer');
-const offerRoutes = require('./routes/offer');
-const clickRoutes = require('./routes/click');
-const transactionRoutes = require('./routes/transaction');
-const withdrawalRoutes = require('./routes/withdrawal');
-const adminRoutes = require('./routes/admin');
-const callbackRoutes = require('./routes/callback');
-
-// Import middleware
-const { protect, restrictTo } = require('./middleware/auth');
+// Routes
+const authRouter = require('./routes/auth');
+const userRouter = require('./routes/user');
+const retailerRouter = require('./routes/retailer');
+const offerRouter = require('./routes/offer');
+const clickRouter = require('./routes/click');
+const transactionRouter = require('./routes/transaction');
+const withdrawalRouter = require('./routes/withdrawal');
+const callbackRouter = require('./routes/callback');
+const adminRouter = require('./routes/admin');
 
 const app = express();
 
-// Trust proxy
-app.set('trust proxy', 1);
-
-// Security Middleware
+// 1) GLOBAL MIDDLEWARES
+// Set security HTTP headers
 app.use(helmet());
 
-// CORS
-app.use(cors({
-  origin: process.env.NODE_ENV === 'production' 
-    ? (process.env.FRONTEND_URL || 'https://your-frontend-domain.com')
-    : ['http://localhost:3000', 'http://localhost:3001'],
-  credentials: true
-}));
+// Development logging
+if (config.nodeEnv === 'development') {
+  app.use(morgan('dev', { stream: { write: (message) => logger.info(message.trim()) } }));
+}
 
-// Rate limiting
+// Limit requests from same API
 const limiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 200, // Limit each IP to 200 requests per window
-  message: 'Too many requests from this IP, please try again later.',
-  standardHeaders: true,
-  legacyHeaders: false,
+  max: 100,
+  windowMs: 60 * 60 * 1000,
+  message: 'Too many requests from this IP, please try again in an hour!',
 });
 app.use('/api', limiter);
 
-// Body parsing middleware
+// Body parser, reading data from body into req.body
 app.use(express.json({ limit: '10kb' }));
 app.use(express.urlencoded({ extended: true, limit: '10kb' }));
 app.use(cookieParser());
 
-
 // Data sanitization against NoSQL query injection
 app.use(mongoSanitize());
 
+// Data sanitization against XSS
+app.use(xss());
 
 // Prevent parameter pollution
-app.use(hpp({
-  whitelist: [
-    'sort', 
-    'category', 
-    'retailer', 
-    'status', 
-    'type', 
-    'limit', 
-    'page'
-  ]
-}));
+app.use(
+  hpp({
+    whitelist: [
+      'duration',
+      'ratingsQuantity',
+      'ratingsAverage',
+      'maxGroupSize',
+      'difficulty',
+      'price',
+    ],
+  })
+);
 
-// Compression middleware
-app.use(compression());
+// Enable CORS
+app.use(cors());
 
-// Request logging
-if (process.env.NODE_ENV === 'development') {
-  const morgan = require('morgan');
-  app.use(morgan('dev'));
-}
-
-// --- API ROUTES ---
-// Corrected paths - removed /v1
-app.use('/api/auth', authRoutes);
-app.use('/api/users', protect, userRoutes);
-app.use('/api/retailers', retailerRoutes);
-app.use('/api/offers', offerRoutes);
-app.use('/api/clicks', clickRoutes);
-app.use('/api/transactions', protect, transactionRoutes);
-app.use('/api/withdrawals', protect, withdrawalRoutes);
-app.use('/api/admin', protect, restrictTo('admin'), adminRoutes);
-app.use('/api/callbacks', callbackRoutes);
-
-
-// API Documentation
-if (process.env.NODE_ENV !== 'production') {
-  const swaggerUi = require('swagger-ui-express');
-  const swaggerSpec = require('./config/swagger');
-  app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
-  logger.info(`API docs available at /api-docs`);
-}
-
-// Health check endpoint
-app.get('/health', (req, res) => {
-  res.status(200).json({
-    status: 'success',
-    message: 'Server is healthy',
-    timestamp: new Date().toISOString()
-  });
+// Expose custom headers to client JavaScript
+app.use((req, res, next) => {
+    res.setHeader(
+      'Access-Control-Expose-Headers',
+      'x-access-token, x-user-id, x-user-role, x-refresh-token'
+    );
+    next();
 });
 
-// Handle undefined routes
+// 2) ROUTES
+app.use('/api/auth', authRouter);
+app.use('/api/users', userRouter);
+app.use('/api/retailers', retailerRouter);
+app.use('/api/offers', offerRouter);
+app.use('/api/clicks', clickRouter);
+app.use('/api/transactions', transactionRouter);
+app.use('/api/withdrawals', withdrawalRouter);
+app.use('/api/callback', callbackRouter);
+app.use('/api/admin', adminRouter);
+
+
 app.all('*', (req, res, next) => {
   next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));
 });
 
-// Global error handling middleware
 app.use(globalErrorHandler);
 
-// Database connection
-mongoose.connect(process.env.MONGODB_URI)
-.then(() => {
-  logger.info('MongoDB connected successfully');
-})
-.catch((err) => {
-  logger.error('MongoDB connection error:', err);
-  process.exit(1);
-});
-
-const PORT = process.env.PORT || 5000;
-
-const server = app.listen(PORT, () => {
-  logger.info(`Server running in ${process.env.NODE_ENV} mode on port ${PORT}`);
-});
-
-// Handle unhandled promise rejections
-process.on('unhandledRejection', (err) => {
-  logger.error('UNHANDLED REJECTION! 💥 Shutting down...', err);
-  server.close(() => {
-    process.exit(1);
-  });
-});
-
-// Handle uncaught exceptions
-process.on('uncaughtException', (err) => {
-  logger.error('UNCAUGHT EXCEPTION! 💥 Shutting down...', err);
-  server.close(() => {
-    process.exit(1);
-  });
-});
-
-// Graceful shutdown
-process.on('SIGTERM', () => {
-  logger.info('SIGTERM received. Shutting down gracefully');
-  server.close(() => {
-    logger.info('Process terminated!');
-  });
-});
-
-module.exports = { app, server };
+module.exports = app;

@@ -167,7 +167,6 @@ const retailerSchema = new mongoose.Schema({
 });
 
 // Indexes
-retailerSchema.index({ slug: 1 });
 retailerSchema.index({ category: 1 });
 retailerSchema.index({ isActive: 1 });
 retailerSchema.index({ isFeatured: 1, priority: -1 });

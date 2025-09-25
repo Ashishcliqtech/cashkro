@@ -1,69 +1,71 @@
 const User = require('../models/User');
 const catchAsync = require('../utils/catchAsync');
 const AppError = require('../utils/appError');
+const factory = require('./handlerFactory');
 
-// Get current user's profile
-exports.getMe = (req, res, next) => {
-  res.status(200).json({
-    status: 'success',
-    data: {
-      user: req.user,
-    },
+const filterObj = (obj, ...allowedFields) => {
+  const newObj = {};
+  Object.keys(obj).forEach(el => {
+    if (allowedFields.includes(el)) newObj[el] = obj[el];
   });
+  return newObj;
 };
 
-// Update current user's profile information (not password)
+exports.getMe = (req, res, next) => {
+  req.params.id = req.user.id;
+  next();
+};
+
 exports.updateMe = catchAsync(async (req, res, next) => {
   // 1) Create error if user POSTs password data
   if (req.body.password || req.body.passwordConfirm) {
     return next(
       new AppError(
-        'This route is not for password updates. Please use /changePassword.',
+        'This route is not for password updates. Please use /updateMyPassword.',
         400
       )
     );
   }
 
   // 2) Filtered out unwanted fields names that are not allowed to be updated
-  const filteredBody = {
-    firstName: req.body.firstName,
-    lastName: req.body.lastName,
-    phone: req.body.phone
-  };
-
+  const filteredBody = filterObj(req.body, 'name', 'phone');
+  
   // 3) Update user document
   const updatedUser = await User.findByIdAndUpdate(req.user.id, filteredBody, {
     new: true,
-    runValidators: true,
+    runValidators: true
   });
 
   res.status(200).json({
     status: 'success',
     data: {
-      user: updatedUser,
-    },
+      user: updatedUser
+    }
   });
 });
 
-// Change current user's password
-exports.changePassword = catchAsync(async (req, res, next) => {
-  // 1) Get user from collection
-  const user = await User.findById(req.user.id).select('+password');
+exports.deleteMe = catchAsync(async (req, res, next) => {
+  await User.findByIdAndUpdate(req.user.id, { isActive: false });
 
-  // 2) Check if POSTed current password is correct
-  if (!(await user.correctPassword(req.body.currentPassword, user.password))) {
-    return next(new AppError('Your current password is wrong', 401));
-  }
-
-  // 3) If so, update password
-  user.password = req.body.newPassword;
-  await user.save();
-  
-  // 4) Log user in, send JWT
-  // Note: createSendToken is in authController, but we can re-create token here
-  // For simplicity, we just send a success message. The user's current token remains valid.
-  res.status(200).json({
+  res.status(204).json({
     status: 'success',
-    message: 'Password changed successfully!'
+    data: null
   });
 });
+
+exports.createUser = (req, res) => {
+  res.status(500).json({
+    status: 'error',
+    message: 'This route is not defined! Please use /signup instead'
+  });
+};
+
+// Get a user by ID
+exports.getUser = factory.getOne(User);
+exports.getAllUsers = factory.getAll(User);
+
+// Do NOT update passwords with this!
+// Update a user by ID (admin only)
+exports.updateUser = factory.updateOne(User);
+exports.deleteUser = factory.deleteOne(User);
+

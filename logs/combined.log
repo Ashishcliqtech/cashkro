@@ -9,3 +9,98 @@
 {"level":"info","message":"MongoDB connected successfully","service":"cashback-platform","timestamp":"2025-09-23 04:49:23"}
 {"level":"error","message":"Error sending email: nodemailer.createTransporter is not a function","service":"cashback-platform","stack":"TypeError: nodemailer.createTransporter is not a function\n    at Email.newTransport (/home/ashish-kumar/project/cashkro/src/utils/email.js:25:23)\n    at Email.send (/home/ashish-kumar/project/cashkro/src/utils/email.js:45:18)\n    at Email.sendWelcome (/home/ashish-kumar/project/cashkro/src/utils/email.js:68:16)\n    at /home/ashish-kumar/project/cashkro/src/controllers/authController.js:35:47\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)","timestamp":"2025-09-23 04:50:43"}
 {"level":"error","message":"Email sending failed during registration: There was an error sending the email. Try again later.","service":"cashback-platform","stack":"Error: There was an error sending the email. Try again later.\n    at Email.send (/home/ashish-kumar/project/cashkro/src/utils/email.js:49:13)\n    at Email.sendWelcome (/home/ashish-kumar/project/cashkro/src/utils/email.js:68:16)\n    at /home/ashish-kumar/project/cashkro/src/controllers/authController.js:35:47\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)","timestamp":"2025-09-23 04:50:43"}
+{"level":"info","message":"App running on port 5000...","service":"cashback-platform","timestamp":"2025-09-24 20:44:13"}
+{"level":"info","message":"MongoDB Connected: project-shard-00-02.3dxyg.mongodb.net","service":"cashback-platform","timestamp":"2025-09-24 20:44:13"}
+{"level":"info","message":"App running on port 5000...","service":"cashback-platform","timestamp":"2025-09-24 20:45:51"}
+{"level":"info","message":"MongoDB Connected: project-shard-00-00.3dxyg.mongodb.net","service":"cashback-platform","timestamp":"2025-09-24 20:45:52"}
+{"level":"info","message":"MongoDB Connected for migration","service":"cashback-platform","timestamp":"2025-09-24 21:00:29"}
+{"level":"info","message":"Admin user created","service":"cashback-platform","timestamp":"2025-09-24 21:00:29"}
+{"level":"info","message":"MongoDB Connected for seeding","service":"cashback-platform","timestamp":"2025-09-24 21:00:46"}
+{"level":"info","message":"Admin user seeded","service":"cashback-platform","timestamp":"2025-09-24 21:00:46"}
+{"level":"info","message":"App running on port 5000...","service":"cashback-platform","timestamp":"2025-09-24 21:01:00"}
+{"level":"info","message":"MongoDB Connected: project-shard-00-02.3dxyg.mongodb.net","service":"cashback-platform","timestamp":"2025-09-24 21:01:00"}
+{"level":"info","message":"\u001b[0mPOST /api/auth/login \u001b[31m500\u001b[0m 351.677 ms - 432\u001b[0m","service":"cashback-platform","timestamp":"2025-09-24 21:09:13"}
+{"level":"info","message":"App running on port 5000...","service":"cashback-platform","timestamp":"2025-09-24 21:13:49"}
+{"level":"info","message":"MongoDB Connected: project-shard-00-00.3dxyg.mongodb.net","service":"cashback-platform","timestamp":"2025-09-24 21:13:49"}
+{"level":"info","message":"App running on port 5000...","service":"cashback-platform","timestamp":"2025-09-24 21:16:20"}
+{"level":"info","message":"MongoDB Connected: project-shard-00-01.3dxyg.mongodb.net","service":"cashback-platform","timestamp":"2025-09-24 21:16:20"}
+{"level":"info","message":"\u001b[0mPOST /api/auth/login \u001b[32m200\u001b[0m 459.729 ms - 330\u001b[0m","service":"cashback-platform","timestamp":"2025-09-24 21:16:27"}
+{"level":"error","message":"Failed to initialize Brevo API client: Cannot read properties of undefined (reading 'instance')","service":"cashback-platform","stack":"TypeError: Cannot read properties of undefined (reading 'instance')\n    at newTransport (/home/ashish-kumar/project/cashkro/src/utils/email.js:12:45)\n    at Email.send (/home/ashish-kumar/project/cashkro/src/utils/email.js:46:23)\n    at Email.sendOtp (/home/ashish-kumar/project/cashkro/src/utils/email.js:83:16)\n    at /home/ashish-kumar/project/cashkro/src/controllers/authController.js:50:51\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)","timestamp":"2025-09-24 21:18:49"}
+{"level":"error","message":"Email not sent to testuser@example.com due to Brevo client initialization failure.","service":"cashback-platform","timestamp":"2025-09-24 21:18:49"}
+{"level":"info","message":"\u001b[0mPOST /api/auth/signup \u001b[32m201\u001b[0m 491.823 ms - 71\u001b[0m","service":"cashback-platform","timestamp":"2025-09-24 21:18:49"}
+{"level":"info","message":"App running on port 5000...","service":"cashback-platform","timestamp":"2025-09-24 21:30:21"}
+{"level":"info","message":"MongoDB Connected: project-shard-00-00.3dxyg.mongodb.net","service":"cashback-platform","timestamp":"2025-09-24 21:30:21"}
+{"level":"info","message":"\u001b[0mPOST /api/auth/signup \u001b[33m400\u001b[0m 315.196 ms - 362\u001b[0m","service":"cashback-platform","timestamp":"2025-09-24 21:30:29"}
+{"level":"error","message":"Failed to initialize Brevo API client: Cannot read properties of undefined (reading 'instance')","service":"cashback-platform","stack":"TypeError: Cannot read properties of undefined (reading 'instance')\n    at newTransport (/home/ashish-kumar/project/cashkro/src/utils/email.js:12:45)\n    at Email.send (/home/ashish-kumar/project/cashkro/src/utils/email.js:46:23)\n    at Email.sendOtp (/home/ashish-kumar/project/cashkro/src/utils/email.js:83:16)\n    at /home/ashish-kumar/project/cashkro/src/controllers/authController.js:50:51\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)","timestamp":"2025-09-24 21:32:30"}
+{"level":"error","message":"Email not sent to ashish84048@gmail.com due to Brevo client initialization failure.","service":"cashback-platform","timestamp":"2025-09-24 21:32:30"}
+{"level":"info","message":"\u001b[0mPOST /api/auth/signup \u001b[32m201\u001b[0m 335.048 ms - 71\u001b[0m","service":"cashback-platform","timestamp":"2025-09-24 21:32:30"}
+{"level":"info","message":"App running on port 5000...","service":"cashback-platform","timestamp":"2025-09-24 21:59:15"}
+{"level":"info","message":"MongoDB Connected: project-shard-00-02.3dxyg.mongodb.net","service":"cashback-platform","timestamp":"2025-09-24 21:59:15"}
+{"level":"info","message":"App running on port 5000...","service":"cashback-platform","timestamp":"2025-09-24 21:59:23"}
+{"level":"info","message":"MongoDB Connected: project-shard-00-00.3dxyg.mongodb.net","service":"cashback-platform","timestamp":"2025-09-24 21:59:23"}
+{"level":"info","message":"\u001b[0mPOST /api/auth/signup \u001b[33m400\u001b[0m 213.519 ms - 362\u001b[0m","service":"cashback-platform","timestamp":"2025-09-24 21:59:28"}
+{"level":"info","message":"App running on port 5000...","service":"cashback-platform","timestamp":"2025-09-24 22:02:22"}
+{"level":"info","message":"MongoDB Connected: project-shard-00-01.3dxyg.mongodb.net","service":"cashback-platform","timestamp":"2025-09-24 22:02:22"}
+{"level":"info","message":"\u001b[0mPOST /api/auth/signup \u001b[33m400\u001b[0m 347.270 ms - 362\u001b[0m","service":"cashback-platform","timestamp":"2025-09-24 22:02:26"}
+{"level":"info","message":"\u001b[0mPOST /api/auth/signup \u001b[33m400\u001b[0m 62.240 ms - 362\u001b[0m","service":"cashback-platform","timestamp":"2025-09-24 22:02:29"}
+{"level":"error","message":"❌ Error sending email to ashish84048@gmail.com: Request failed with status code 401","service":"cashback-platform","timestamp":"2025-09-24 22:04:02"}
+{"level":"info","message":"\u001b[0mPOST /api/auth/signup \u001b[32m201\u001b[0m 1831.899 ms - 71\u001b[0m","service":"cashback-platform","timestamp":"2025-09-24 22:04:02"}
+{"level":"error","message":"❌ Error sending email to tv665193@gmail.com: Request failed with status code 401","service":"cashback-platform","timestamp":"2025-09-24 22:05:13"}
+{"level":"info","message":"\u001b[0mPOST /api/auth/signup \u001b[32m201\u001b[0m 1362.140 ms - 71\u001b[0m","service":"cashback-platform","timestamp":"2025-09-24 22:05:13"}
+{"level":"info","message":"App running on port 5000...","service":"cashback-platform","timestamp":"2025-09-24 22:07:30"}
+{"level":"info","message":"MongoDB Connected: project-shard-00-02.3dxyg.mongodb.net","service":"cashback-platform","timestamp":"2025-09-24 22:07:30"}
+{"level":"error","message":"❌ Error sending email to tv665193@gmail.com: Request failed with status code 401","service":"cashback-platform","timestamp":"2025-09-24 22:07:49"}
+{"level":"info","message":"\u001b[0mPOST /api/auth/signup \u001b[31m500\u001b[0m 799.884 ms - 402\u001b[0m","service":"cashback-platform","timestamp":"2025-09-24 22:07:49"}
+{"level":"info","message":"App running on port 5000...","service":"cashback-platform","timestamp":"2025-09-24 22:08:43"}
+{"level":"info","message":"MongoDB Connected: project-shard-00-00.3dxyg.mongodb.net","service":"cashback-platform","timestamp":"2025-09-24 22:08:48"}
+{"level":"error","message":"❌ Error sending email to tv665193@gmail.com: Request failed with status code 401","service":"cashback-platform","timestamp":"2025-09-24 22:08:55"}
+{"level":"info","message":"\u001b[0mPOST /api/auth/signup \u001b[31m500\u001b[0m 1308.118 ms - 402\u001b[0m","service":"cashback-platform","timestamp":"2025-09-24 22:08:55"}
+{"level":"info","message":"App running on port 5000...","service":"cashback-platform","timestamp":"2025-09-24 22:11:32"}
+{"level":"info","message":"MongoDB Connected: project-shard-00-01.3dxyg.mongodb.net","service":"cashback-platform","timestamp":"2025-09-24 22:11:32"}
+{"level":"error","message":"❌ Error sending email to tv665193@gmail.com: Request failed with status code 401","service":"cashback-platform","timestamp":"2025-09-24 22:11:39"}
+{"level":"info","message":"\u001b[0mPOST /api/auth/signup \u001b[31m500\u001b[0m 959.329 ms - 402\u001b[0m","service":"cashback-platform","timestamp":"2025-09-24 22:11:39"}
+{"level":"info","message":"App running on port 5000...","service":"cashback-platform","timestamp":"2025-09-24 22:19:12"}
+{"level":"info","message":"MongoDB Connected: project-shard-00-01.3dxyg.mongodb.net","service":"cashback-platform","timestamp":"2025-09-24 22:19:13"}
+{"level":"error","message":"❌ Error sending email to tv665193@gmail.com: Request failed with status code 401","service":"cashback-platform","timestamp":"2025-09-24 22:20:51"}
+{"level":"info","message":"\u001b[0mPOST /api/auth/signup \u001b[31m500\u001b[0m 1113.014 ms - 402\u001b[0m","service":"cashback-platform","timestamp":"2025-09-24 22:20:51"}
+{"level":"info","message":"App running on port 5000...","service":"cashback-platform","timestamp":"2025-09-24 22:21:10"}
+{"level":"info","message":"MongoDB Connected: project-shard-00-02.3dxyg.mongodb.net","service":"cashback-platform","timestamp":"2025-09-24 22:21:11"}
+{"level":"info","message":"✅ Email sent successfully to tv665193@gmail.com","service":"cashback-platform","timestamp":"2025-09-24 22:21:16"}
+{"level":"info","message":"\u001b[0mPOST /api/auth/signup \u001b[32m201\u001b[0m 1088.109 ms - 71\u001b[0m","service":"cashback-platform","timestamp":"2025-09-24 22:21:16"}
+{"level":"info","message":"\u001b[0mPOST /api/auth/verify-otp \u001b[31m500\u001b[0m 193.588 ms - 378\u001b[0m","service":"cashback-platform","timestamp":"2025-09-24 22:22:21"}
+{"level":"info","message":"App running on port 5000...","service":"cashback-platform","timestamp":"2025-09-24 22:23:41"}
+{"level":"info","message":"MongoDB Connected: project-shard-00-00.3dxyg.mongodb.net","service":"cashback-platform","timestamp":"2025-09-24 22:23:42"}
+{"level":"info","message":"App running on port 5000...","service":"cashback-platform","timestamp":"2025-09-24 22:23:48"}
+{"level":"info","message":"MongoDB Connected: project-shard-00-01.3dxyg.mongodb.net","service":"cashback-platform","timestamp":"2025-09-24 22:23:49"}
+{"level":"info","message":"App running on port 5000...","service":"cashback-platform","timestamp":"2025-09-24 22:23:54"}
+{"level":"info","message":"MongoDB Connected: project-shard-00-00.3dxyg.mongodb.net","service":"cashback-platform","timestamp":"2025-09-24 22:23:54"}
+{"level":"info","message":"\u001b[0mPOST /api/auth/verify-otp \u001b[32m201\u001b[0m 770.963 ms - 332\u001b[0m","service":"cashback-platform","timestamp":"2025-09-24 22:24:00"}
+{"level":"info","message":"\u001b[0mPOST /api/auth/login \u001b[32m200\u001b[0m 399.860 ms - 332\u001b[0m","service":"cashback-platform","timestamp":"2025-09-24 22:24:33"}
+{"level":"info","message":"App running on port 5000...","service":"cashback-platform","timestamp":"2025-09-24 22:25:47"}
+{"level":"info","message":"MongoDB Connected: project-shard-00-00.3dxyg.mongodb.net","service":"cashback-platform","timestamp":"2025-09-24 22:25:47"}
+{"level":"info","message":"\u001b[0mGET /api/users/me \u001b[33m401\u001b[0m 8.556 ms - 1221\u001b[0m","service":"cashback-platform","timestamp":"2025-09-24 22:25:54"}
+{"level":"info","message":"\u001b[0mPOST /api/auth/login \u001b[32m200\u001b[0m 460.512 ms - 332\u001b[0m","service":"cashback-platform","timestamp":"2025-09-24 22:26:04"}
+{"level":"info","message":"\u001b[0mGET /api/users/me \u001b[33m401\u001b[0m 2.145 ms - 1221\u001b[0m","service":"cashback-platform","timestamp":"2025-09-24 22:26:10"}
+{"level":"info","message":"\u001b[0mGET /api/users/me \u001b[33m401\u001b[0m 1.136 ms - 1221\u001b[0m","service":"cashback-platform","timestamp":"2025-09-24 22:26:13"}
+{"level":"info","message":"\u001b[0mGET /api/users/me \u001b[32m200\u001b[0m 189.223 ms - 390\u001b[0m","service":"cashback-platform","timestamp":"2025-09-24 22:26:59"}
+{"level":"info","message":"App running on port 5000...","service":"cashback-platform","timestamp":"2025-09-24 22:32:35"}
+{"level":"info","message":"MongoDB Connected: project-shard-00-00.3dxyg.mongodb.net","service":"cashback-platform","timestamp":"2025-09-24 22:32:35"}
+{"level":"info","message":"✅ Email sent successfully to tv665193@gmail.com","service":"cashback-platform","timestamp":"2025-09-24 22:32:41"}
+{"level":"info","message":"\u001b[0mPOST /api/auth/forgot-password \u001b[32m200\u001b[0m 1672.193 ms - 75\u001b[0m","service":"cashback-platform","timestamp":"2025-09-24 22:32:41"}
+{"level":"info","message":"✅ Email sent successfully to tv665193@gmail.com","service":"cashback-platform","timestamp":"2025-09-24 22:33:46"}
+{"level":"info","message":"\u001b[0mPOST /api/auth/forgot-password \u001b[32m200\u001b[0m 1356.973 ms - 75\u001b[0m","service":"cashback-platform","timestamp":"2025-09-24 22:33:46"}
+{"level":"info","message":"\u001b[0mPOST /api/auth/verify-forgot-otp \u001b[31m500\u001b[0m 365.520 ms - 379\u001b[0m","service":"cashback-platform","timestamp":"2025-09-24 22:34:22"}
+{"level":"info","message":"App running on port 5000...","service":"cashback-platform","timestamp":"2025-09-24 22:35:51"}
+{"level":"info","message":"MongoDB Connected: project-shard-00-01.3dxyg.mongodb.net","service":"cashback-platform","timestamp":"2025-09-24 22:35:51"}
+{"level":"info","message":"App running on port 5000...","service":"cashback-platform","timestamp":"2025-09-24 22:36:11"}
+{"level":"info","message":"MongoDB Connected: project-shard-00-01.3dxyg.mongodb.net","service":"cashback-platform","timestamp":"2025-09-24 22:36:11"}
+{"level":"info","message":"\u001b[0mPOST /api/auth/verify-forgot-otp \u001b[33m400\u001b[0m 162.467 ms - 301\u001b[0m","service":"cashback-platform","timestamp":"2025-09-24 22:36:17"}
+{"level":"info","message":"✅ Email sent successfully to tv665193@gmail.com","service":"cashback-platform","timestamp":"2025-09-24 22:36:26"}
+{"level":"info","message":"\u001b[0mPOST /api/auth/forgot-password \u001b[32m200\u001b[0m 1000.637 ms - 75\u001b[0m","service":"cashback-platform","timestamp":"2025-09-24 22:36:26"}
+{"level":"info","message":"\u001b[0mPOST /api/auth/verify-forgot-otp \u001b[33m400\u001b[0m 133.653 ms - 301\u001b[0m","service":"cashback-platform","timestamp":"2025-09-24 22:36:50"}
+{"level":"info","message":"\u001b[0mPOST /api/auth/verify-forgot-otp \u001b[32m200\u001b[0m 235.175 ms - 79\u001b[0m","service":"cashback-platform","timestamp":"2025-09-24 22:37:52"}
+{"level":"info","message":"\u001b[0mPATCH /api/auth/reset-password \u001b[32m200\u001b[0m 816.126 ms - 332\u001b[0m","service":"cashback-platform","timestamp":"2025-09-24 22:38:52"}
+{"level":"info","message":"\u001b[0mPATCH /api/auth/reset-password \u001b[33m403\u001b[0m 128.436 ms - 387\u001b[0m","service":"cashback-platform","timestamp":"2025-09-24 22:39:13"}
+{"level":"info","message":"\u001b[0mPOST /api/auth/login \u001b[32m200\u001b[0m 394.909 ms - 332\u001b[0m","service":"cashback-platform","timestamp":"2025-09-24 22:40:33"}
+{"level":"info","message":"\u001b[0mPOST /api/auth/signup \u001b[33m400\u001b[0m 29.718 ms - 360\u001b[0m","service":"cashback-platform","timestamp":"2025-09-24 22:40:50"}
+{"level":"info","message":"\u001b[0mGET /api/users/me \u001b[32m200\u001b[0m 411.177 ms - 390\u001b[0m","service":"cashback-platform","timestamp":"2025-09-24 22:41:08"}
