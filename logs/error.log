@@ -10,3 +10,6 @@
 {"level":"error","message":"❌ Error sending email to tv665193@gmail.com: Request failed with status code 401","service":"cashback-platform","timestamp":"2025-09-24 22:08:55"}
 {"level":"error","message":"❌ Error sending email to tv665193@gmail.com: Request failed with status code 401","service":"cashback-platform","timestamp":"2025-09-24 22:11:39"}
 {"level":"error","message":"❌ Error sending email to tv665193@gmail.com: Request failed with status code 401","service":"cashback-platform","timestamp":"2025-09-24 22:20:51"}
+2025-09-26 23:26:06 error: No signup session found for key: signup:ashish84048@gmail.com
+2025-09-26 23:26:23 error: No signup session found for key: signup:testuser@example.com
+2025-09-26 23:26:34 error: No signup session found for key: signup:testuser@example.com

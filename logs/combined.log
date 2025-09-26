@@ -104,3 +104,45 @@
 {"level":"info","message":"\u001b[0mPOST /api/auth/login \u001b[32m200\u001b[0m 394.909 ms - 332\u001b[0m","service":"cashback-platform","timestamp":"2025-09-24 22:40:33"}
 {"level":"info","message":"\u001b[0mPOST /api/auth/signup \u001b[33m400\u001b[0m 29.718 ms - 360\u001b[0m","service":"cashback-platform","timestamp":"2025-09-24 22:40:50"}
 {"level":"info","message":"\u001b[0mGET /api/users/me \u001b[32m200\u001b[0m 411.177 ms - 390\u001b[0m","service":"cashback-platform","timestamp":"2025-09-24 22:41:08"}
+2025-09-26 22:03:49 info: Upstash Redis client configured.
+2025-09-26 22:03:50 info: App running on port 5000...
+2025-09-26 22:09:59 info: Upstash Redis client configured.
+2025-09-26 22:09:59 info: App running on port 5000...
+2025-09-26 22:35:24 info: Upstash Redis client configured.
+2025-09-26 22:35:24 info: App running on port 5000...
+2025-09-26 22:36:12 info: OTP email sent successfully to ashish84048@gmail.com via Brevo.
+2025-09-26 22:39:05 info: Upstash Redis client configured.
+2025-09-26 22:39:05 info: App running on port 5000...
+2025-09-26 22:45:16 info: OTP email sent successfully to ashish84048@gmail.com via Brevo.
+2025-09-26 22:49:59 info: OTP email sent successfully to ashish84048@gmail.com via Brevo.
+2025-09-26 22:50:19 info: Upstash Redis client configured.
+2025-09-26 22:50:19 info: App running on port 5000...
+2025-09-26 22:51:03 info: OTP email sent successfully to ashish84048@gmail.com via Brevo.
+2025-09-26 22:53:57 info: Upstash Redis client configured.
+2025-09-26 22:53:57 info: App running on port 5000...
+2025-09-26 22:57:33 info: OTP email sent successfully to ashish84048@gmail.com via Brevo.
+2025-09-26 23:01:51 info: Upstash Redis client configured.
+2025-09-26 23:01:51 info: App running on port 5000...
+2025-09-26 23:02:13 info: OTP email sent successfully to ashish84048@gmail.com via Brevo.
+2025-09-26 23:15:56 info: Upstash Redis client configured.
+2025-09-26 23:15:57 info: App running on port 5000...
+2025-09-26 23:16:23 info: OTP email sent successfully to ashish84048@gmail.com via Brevo.
+2025-09-26 23:17:23 info: OTP email sent successfully to ashish84048@gmail.com via Brevo.
+2025-09-26 23:18:23 info: Upstash Redis client configured.
+2025-09-26 23:18:23 info: App running on port 5000...
+2025-09-26 23:18:35 info: OTP email sent successfully to ashish84048@gmail.com via Brevo.
+2025-09-26 23:21:20 info: Upstash Redis client configured.
+2025-09-26 23:21:20 info: App running on port 5000...
+2025-09-26 23:21:41 info: OTP email sent successfully to ashish84048@gmail.com via Brevo.
+2025-09-26 23:23:32 info: Upstash Redis client configured.
+2025-09-26 23:23:32 info: App running on port 5000...
+2025-09-26 23:23:42 info: Upstash Redis client configured.
+2025-09-26 23:23:42 info: App running on port 5000...
+2025-09-26 23:24:01 info: OTP email sent successfully to ashish84048@gmail.com via Brevo.
+2025-09-26 23:25:57 info: Upstash Redis client configured.
+2025-09-26 23:25:57 info: App running on port 5000...
+2025-09-26 23:26:06 error: No signup session found for key: signup:ashish84048@gmail.com
+2025-09-26 23:26:16 info: OTP email sent successfully to ashish84048@gmail.com via Brevo.
+2025-09-26 23:26:23 error: No signup session found for key: signup:testuser@example.com
+2025-09-26 23:26:34 error: No signup session found for key: signup:testuser@example.com
+2025-09-26 23:28:10 info: OTP email sent successfully to ashish84048@gmail.com via Brevo.

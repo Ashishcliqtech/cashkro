@@ -1,38 +1,17 @@
+// FILE: src/routes/user.js
+
 const express = require('express');
 const userController = require('../controllers/userController');
-const authController = require('../controllers/authController');
-const authMiddleware = require('../middleware/auth');
-const { validateUpdateMe, validateChangePassword } = require('../middleware/validation');
+const { protect, restrictTo } = require('../middleware/auth');
 
 const router = express.Router();
 
-// All routes below are protected for logged-in users
-router.use(authMiddleware.protect);
+// This middleware will protect all subsequent routes in this file
+router.use(protect);
 
-router.get('/me', userController.getMe, userController.getUser);
-router.patch('/updateMe', validateUpdateMe, userController.updateMe);
-router.delete('/deleteMe', userController.deleteMe);
+router.get('/me', userController.getMe);
 
-router.patch(
-    '/updateMyPassword',
-    validateChangePassword,
-    authController.changePassword
-);
-
-
-// Routes below are restricted to admin users only
-router.use(authMiddleware.restrictTo('admin'));
-
-router
-    .route('/')
-    .get(userController.getAllUsers)
-    .post(userController.createUser);
-
-router
-    .route('/:id')
-    .get(userController.getUser)
-    .patch(userController.updateUser)
-    .delete(userController.deleteUser);
+// Example of an admin-only route you can add later
+// router.get('/', restrictTo('admin'), userController.getAllUsers);
 
 module.exports = router;
-
